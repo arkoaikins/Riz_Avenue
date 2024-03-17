@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from shortuuid.django_fields import ShortUUIDField
+from django.db.models.signals import post_save
 
 # Create my custom user model.
 class User(AbstractUser):
@@ -66,3 +67,33 @@ class Profile(models.Model):
             self.full_name = self.user.full_name
         
         super().save(*args, **kwargs)
+
+# Automatically creates a user profile when a new user is created and handles profile updates
+def create_user_profile(sender, instance, created , **kwargs):
+    """
+    Creates a new Profile instance for a newly created User Object
+    Args:
+        sender: Model class that sends the signal(User model in this case)
+        instance: The User instance that has just been created
+        created: True if a new User was created, Otherwise False
+    """
+    if created:
+        Profile.objects.create(user=instance) # creates a Profile linked to the new User
+        
+def save_user_profile(sender, instance, **kwargs):
+    """
+    Saves the associated Profile instance for an existing User object.
+    
+    Called when a User object is saved,ensuring corresponding Profile
+    updates
+    
+    Args:
+        sender: The model class that sends the signal(User model in this case)
+        instance: The user instance that was saved
+        **kwargs: Additional keyword arguments sent with the signal
+    """
+    instance.profile.save()
+
+# Connects the signal handlers to the User model's post_save signal for automatic execution.
+post_save.connect(create_user_profile, sender=User)
+post_save.connect(save_user_profile, sender=User)
