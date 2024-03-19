@@ -58,7 +58,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         """
 
         model = User
-        fields = ["full_name", "email", "password", "password2"]
+        fields = ["full_name", "email", "phone", "password", "password2"]
 
     def validate(self, attrs):
         """
@@ -79,9 +79,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             phone=validated_data["phone"],
         )
         email_user, mobile = user.email.split("@")
-        user.set_password(validate_password["password"])
-
-        user.set_password(validate_password["password"])
+        user.username = email_user
+        user.set_password(validated_data["password"])
         user.save()
 
         return user
