@@ -1,6 +1,7 @@
+from django.contrib.auth.password_validation import validate_password
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from userauths.models import User, Profile
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -39,6 +40,51 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             token["brand_id"] = 0
 
         return token
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Serializer for user registeration
+    """
+
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password]
+    )
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        """
+        Meta options for RegisterSerializer
+        """
+
+        model = User
+        fields = ["full_name", "email", "password", "password2"]
+
+    def validate(self, attrs):
+        """
+        Validates the password fields to ensure they match
+        """
+        if attrs["password"] != attrs["password2"]:
+            raise serializers.ValidationError({
+                "password": "Password do not match"})
+        return attrs
+
+    def create(self, validated_data):
+        """
+        Creates a new user with the provided validated data
+        """
+        user = User.objects.create(
+            full_name=validated_data["full_name"],
+            email=validated_data["email"],
+            phone=validated_data["phone"],
+        )
+        email_user, mobile = user.email.split("@")
+        user.set_password(validate_password["password"])
+
+        user.set_password(validate_password["password"])
+        user.save()
+
+        return user
 
 
 class UserSerializer(serializers.ModelSerializer):
