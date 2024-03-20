@@ -1,4 +1,3 @@
 myenv
 .env
 *.pyc
-db.sqlite3
