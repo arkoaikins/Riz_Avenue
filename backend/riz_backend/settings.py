@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # Third party Apps
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
