@@ -1,7 +1,7 @@
 import {useAuthStore} from '../store/auth';
 import axios from './axios';
 import jwt_decode from 'jwt-decode';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 // Function for user login with axios to post user credentials  
 export const login = async (email, password) => {
@@ -57,8 +57,8 @@ export const register = async(full_name, email, phone, password, password2) => {
 // Function for user logout
 export const logout = () => {
     // Remove acess and refresh token
-    Cookie.remove("access_token");
-    Cookie.remove("refresh_token");
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
     // and set the user in the authentication store to null
     useAuthStore.getState().setUser(null);
 
@@ -67,9 +67,9 @@ export const logout = () => {
 
 // Function to set the user in the authentication store
 export const setUser = async () => {
-    // Get access and refresh token from cookies
-    const accessToken = Cookie.get("access_token")
-    const refreshToken = Cookie.get("refresh_token")
+    // Get access and refresh token from Cookiess
+    const accessToken = Cookies.get("access_token")
+    const refreshToken = Cookies.get("refresh_token")
 
     // if no access or refresh token, return
     if(!accessToken || !refreshToken) {
@@ -87,14 +87,14 @@ export const setUser = async () => {
 
 // Function to set authenticated user in the AuthStore
 export const setAuthUser = (access_token, refresh_token) => {
-    // set access token cookie to expire after 1 day with a secure flag
-    Cookie.set('access_token', access_token, {
+    // set access token Cookies to expire after 1 day with a secure flag
+    Cookies.set('access_token', access_token, {
         expire: 1,
         secure: true,
     });
 
-    // set refresh token cookie to expire after a week with a secure flag
-    Cookie.set('refresh_token', refresh_token, {
+    // set refresh token Cookies to expire after a week with a secure flag
+    Cookies.set('refresh_token', refresh_token, {
         expire: 7,
         secure: true,
     });
@@ -112,8 +112,8 @@ export const setAuthUser = (access_token, refresh_token) => {
 
 // Function to obtain new acess and refresh token from the backend by POST request with axios
 export const getRefreshToken = async () => {
-    // get the unexpired refresh token from the cookie
-    const refresh_token = Cookie.get("refresh_token");
+    // get the unexpired refresh token from the Cookies
+    const refresh_token = Cookies.get("refresh_token");
     // send POST request to the endpoint with refresh token
     const response = await axios.post("user/token/refresh/", {
         refresh: refresh_token,
