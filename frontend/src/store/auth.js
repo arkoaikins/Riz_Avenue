@@ -11,12 +11,12 @@ const useAuthStore = create((set, get) => ({
     SetUser: take user object and updates the allUserData in the store
     SetLoading:Take boolean value and update the loading in the store
     
-    setLoggedin:Check if user is logged in by verifying 'allUserData
+    isLoggedin:Check if user is logged in by verifying 'allUserData
     is not null,returns boolean
     */
     setUser: (user) => set({allUserData: user}),
     setLoading: (loading) => set({loading}),
-    setLoggedIn: () => get().allUserData !== null,
+    isLoggedIn: () => get().allUserData !== null,
 
     /*getter function
     - function to get user data from store
