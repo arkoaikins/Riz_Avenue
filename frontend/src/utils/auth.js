@@ -89,13 +89,13 @@ export const setUser = async () => {
 export const setAuthUser = (access_token, refresh_token) => {
     // set access token Cookies to expire after 1 day with a secure flag
     Cookies.set('access_token', access_token, {
-        expire: 1,
+        expires: 1,
         secure: true,
     });
 
     // set refresh token Cookies to expire after a week with a secure flag
     Cookies.set('refresh_token', refresh_token, {
-        expire: 7,
+        expires : 7,
         secure: true,
     });
 
