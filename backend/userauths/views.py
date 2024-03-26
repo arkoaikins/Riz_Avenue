@@ -92,5 +92,5 @@ class PasswordResetAPI(generics.RetrieveAPIView):
             link = f"http://localhost:5173/forgot-password?otp={otp}&uidb64={uidb64}"  # nopep8
             print("link =====", link)
 
-            # Send it as an emial to user(to be done)
+            # Send it as an emial to user(to be completed)
         return user
