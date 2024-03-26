@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework import status
 from userauths.models import User, Profile
 from userauths.serializer import (
     MyTokenObtainPairSerializer,
@@ -94,3 +96,29 @@ class PasswordResetAPI(generics.RetrieveAPIView):
 
             # Send it as an emial to user(to be completed)
         return user
+
+class PasswordChangeApi(generics.RetrieveAPIView):
+    """
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """
+        """
+        payload = request.data
+        otp = payload['otp']
+        uidb64 = payload['uidb64']
+        reset_token = payload['reset_token']
+        password = payload['password']
+        
+        user = User.objects.get(id=uidb64, otp=otp)
+        if user:
+            user.set_password(password)
+            user.otp = ""
+            user.reset_token = ""
+            user.save()
+            
+            return Response ({"message": "Password Reset Sucessfully"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response ({"message": "Error occured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
