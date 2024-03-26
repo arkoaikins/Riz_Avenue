@@ -17,7 +17,11 @@ function Dashboard() {
             </div>
             
             
-            : <div>Home Page</div>
+            : <div>
+                <h1>Home Page</h1>
+                <Link to={`/register`}>Register</Link> <br />
+                <Link to={`/login`}>Login</Link>
+            </div>
         
         }
 
