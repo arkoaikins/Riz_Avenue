@@ -91,32 +91,40 @@ class PasswordResetAPI(generics.RetrieveAPIView):
             uidb64 = user.pk
             otp = user.otp
 
-            link = f"http://localhost:5173/forgot-password?otp={otp}&uidb64={uidb64}"  # nopep8
+            link = f"http://localhost:5173/create-new-password?otp={otp}&uidb64={uidb64}"  # nopep8
             print("link =====", link)
 
             # Send it as an emial to user(to be completed)
         return user
 
-class PasswordChangeApi(generics.RetrieveAPIView):
+class PasswordChangeApi(generics.CreateAPIView):
     """
+    API view for changing the user's password
+    
+    - permission_classes is set to allow unrestricted access(for password change)
+    - serializer_class is set to custom UserSerializer class
     """
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
     
     def create(self, request, *args, **kwargs):
         """
+        Handles the creation of a new password
+        - Retrieves the payload from the request data
+        - Extracts the 'otp', 'uidb64', and 'password' from the payload
+        - Attempts to retrieve the user with the provided 'uidb64' and 'otp'
+        - If the user is found, sets the new password, clears the 'otp' field, and saves the user
+        -  Returns a response indicating the success or failure of the password reset
         """
         payload = request.data
         otp = payload['otp']
         uidb64 = payload['uidb64']
-        reset_token = payload['reset_token']
         password = payload['password']
         
         user = User.objects.get(id=uidb64, otp=otp)
         if user:
             user.set_password(password)
             user.otp = ""
-            user.reset_token = ""
             user.save()
             
             return Response ({"message": "Password Reset Sucessfully"}, status=status.HTTP_201_CREATED)
