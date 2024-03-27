@@ -13,8 +13,8 @@ urlpatterns = [
     # Define a path for user registeration using RegisterView
     path("user/register/", userauths_views.RegisterView.as_view()),
     # Define a path for user password reset using PasswordResetAPI
-    path("user/password-reset/<email>/", userauths_views.PasswordResetAPI.as_view(), name='password_change'),
+    path("user/password-reset/<email>/", userauths_views.PasswordResetAPI.as_view()),
     
-    path("user/password-change/", userauths_views.PasswordChangeApi.as_view(), name='password_change'),
+    path("user/password-change/", userauths_views.PasswordChangeApi.as_view()),
     
 ]
