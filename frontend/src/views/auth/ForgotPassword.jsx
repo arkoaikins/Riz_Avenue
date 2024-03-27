@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import creatAPIInstance from '../../utils/axios';
+import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
     const [email, setEmail] = useState("")
+
+    const navigate =  useNavigate()
     
 
-    const handleReset = () => {
+    const handleReset = async () => {
         try {
-            creatAPIInstance.get(`user/password-reset/${email}/`).then((res) =>{
-                console.log(res.data);
+            await creatAPIInstance.get(`user/password-reset/${email}/`).then((res) =>{
+                alert("An Email has been sent to you.")
             })
 
         } catch (error) {
-            console.log(error);
+            alert("NO account associated with this Email")
         }
                         
     }
@@ -22,7 +25,7 @@ function ForgotPassword() {
             <h1>ForgotPassword</h1>
             <input 
             onChange={(e) => setEmail(e.target.value)}
-            type="text" 
+            type="email" 
             placeholder='Enter your Email' 
             name=""
             id="" 
