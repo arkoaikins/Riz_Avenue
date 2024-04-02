@@ -189,6 +189,8 @@ JAZZMIN_SETTINGS = {
     'copyright':"Riz Avenue",
     'show_sidebar': True,
     'show_ui_builder': True,
+    'site_logo': 'static/Riz_avwhite.jpg',
+    "login_logo": 'static/Riz_newblack.jpg',
 }
 
 
