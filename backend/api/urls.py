@@ -42,7 +42,7 @@ urlpatterns = [
     path("checkout/<order_oid>/", store_views.CheckoutView.as_view()),
     path("review/get-reviews/<product_id>/", store_views.ReviewListView.as_view()),
     path("review/create-review/", store_views.CreateReviewView.as_view()),
-    path("search/", store_views.SearchProductView.as_view()),
+    path("search/<str:query>/", store_views.SearchProductView.as_view()),
     path(
         "products/creat-faq/<int:product_id>/",
         store_views.ProductFAQCreateView.as_view(),
