@@ -448,7 +448,9 @@ class ProductDeleteView(generics.DestroyAPIView):
     permission_classes = (AllowAny,)
 
     def get_object(self, *args, **kwargs):
-        """ """
+        """
+        Retrieve the product object to be deleted.
+        """
         brand_id = self.kwargs["brand_id"]
         product_pid = self.kwargs["product_pid"]
 
@@ -457,7 +459,9 @@ class ProductDeleteView(generics.DestroyAPIView):
         return product
 
     def perform_destroy(self, instance):
-        """ """
+        """
+        Perform the deletion of the product instance.
+        """
         instance.delete()
         return Response(
             {"message": "Product deleted successfully"},
