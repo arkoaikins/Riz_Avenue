@@ -55,19 +55,19 @@ to manage  all the brands in one system and track sales,income and feedback from
 2. cd into backend
 3. Create a virtual environemt 
 
-`python -m venv myenv`
+```python -m venv myenv```
 
 4. Activate virtual environment
 
-`source myenv/bin/activate`
+```source myenv/bin/activate```
 
 5. install the dependencies in **requirement.txt** 
 
-`pip install -r requirement.txt`
+```pip install -r requirement.txt```
 
 6. and run your development server 
 
-`python manage.py runserver`
+```python manage.py runserver```    
 
 
 ## Usage
