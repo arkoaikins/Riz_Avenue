@@ -92,8 +92,8 @@ VIDEO HERE
 
 ## Contributing
 
-- Found a bug? [Report here](https://github.com/amasin76/Riz_Avenue/issues/new/choose).
-- Feature missing? [Request here](https://github.com/amasin76/Riz_Avenue/issues/new/choose).
+- Found a bug? 
+- Feature missing?
 - Want to Join build the frontend for Mobile and Web? [Contact Me](arkoaikin@gmail.com)
 
 
