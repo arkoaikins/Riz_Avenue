@@ -47,6 +47,8 @@ to manage  all the brands in one system and track sales,income and feedback from
 
 - [Jazzmin](https://django-jazzmin.readthedocs.io/)
 
+- [Swagger-OpenAPI](https://swagger.io/)
+
 
 
 ### Installation
