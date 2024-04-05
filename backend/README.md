@@ -86,7 +86,8 @@ python manage.py runserver
 
 - navigate to /admin to interact with the Jazzmin admin panel
 
-VIDEO HERE
+
+<video controls src="Riz Avenue Video.mp4" title="Demo Video of the backend"></video>
 
 
 
