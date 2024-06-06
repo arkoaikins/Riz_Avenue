@@ -1,5 +1,5 @@
 # Riz Avenue
-- Online market store
+- Multi brand online market store
 ### Web frontend and mobile app coming soon 😁👇
 
 # React + Vite
